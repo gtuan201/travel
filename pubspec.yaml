@@ -42,11 +42,14 @@ dependencies:
   firebase_core: ^2.14.0
   fluttertoast: ^8.0.9
   google_nav_bar: ^5.0.6
-  appbar_animated: ^0.0.3
   cached_network_image: ^3.1.0
   path_provider: ^2.0.5
   image_picker: ^0.8.3+1
-  persistent_bottom_nav_bar: ^5.0.2
+  google_fonts: ^4.0.3
+  badges: ^3.1.1
+  flutter_map: ^4.0.0
+  latlong2: ^0.8.2
+
 
 dev_dependencies:
   flutter_test:
@@ -101,10 +104,9 @@ flutter:
       fonts:
         - asset: assets/font/Kanit-Bold.ttf
           weight: 800
-#     - family: Schyler
-#       fonts:
-#         - asset: fonts/Schyler-Regular.ttf
-#         - asset: fonts/Schyler-Italic.ttf
+    - family: Belanosima-SemiBold
+      fonts:
+        - asset: assets/font/Belanosima-SemiBold.ttf
 #           style: italic
   #   - family: Trajan Pro
   #     fonts:

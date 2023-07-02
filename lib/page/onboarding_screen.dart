@@ -19,7 +19,7 @@ class _OnboardingState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: contentsList[currentIndex].background,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
@@ -134,17 +134,17 @@ class _OnboardingState extends State<OnboardingScreen> {
                             width: 55,
                             child: CircularProgressIndicator(
                               value: percentage,
-                              backgroundColor: const Color(0xffd0baa7),
+                              backgroundColor: const Color(0xffbae2ff),
                               valueColor: const AlwaysStoppedAnimation<Color>(
-                                Color(0xffffa64f),
+                                Color(0xff5cbbff),
                               ),
                             ),
                           ),
-                          CircleAvatar(
-                            backgroundColor: const Color(0xffffa64f),
+                          const CircleAvatar(
+                            backgroundColor: Color(0xff5cbbff),
                             child: Icon(
                               Icons.arrow_forward_ios_outlined,
-                              color: contentsList[currentIndex].background,
+                              color: Colors.white,
                             ),
                           ),
                         ],

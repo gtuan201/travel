@@ -1,9 +1,7 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:travel/main.dart';
 import 'package:travel/page/main_page.dart';
 import 'package:travel/page/sign_up.dart';
 
@@ -31,12 +29,14 @@ class _LoginState extends State<Login> {
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color(0xffd6edff),Colors.white54,Color(0xcd97cbfc)]
-          )
-        ),
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+              Color(0xffd6edff),
+              Colors.white54,
+              Color(0xcd97cbfc)
+            ])),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -86,6 +86,7 @@ class _LoginState extends State<Login> {
                     });
                   },
                   decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
                       label: const Text("Email"),
                       labelStyle: const TextStyle(color: Colors.black54),
                       hintText: 'Địa chỉ Email',
@@ -114,11 +115,14 @@ class _LoginState extends State<Login> {
                   },
                   textAlignVertical: TextAlignVertical.center,
                   decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
                     labelText: 'Mật khẩu',
                     labelStyle: const TextStyle(color: Colors.black54),
                     hintText: 'Tối thiểu có 8 kí tự',
                     hintStyle: TextStyle(color: Colors.grey[400]),
-                    prefixIcon: const Icon(Icons.lock,),
+                    prefixIcon: const Icon(
+                      Icons.lock,
+                    ),
                     suffixIcon: IconButton(
                         onPressed: () {
                           setState(() {
@@ -142,20 +146,27 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 44,
                 child: ElevatedButton(
-                    onPressed: _enableButton ? () {
-                      setState(() {
-                        _isLoading = true;
-                      });
-                      clickLogin();
-                    } : null,
+                    onPressed: _enableButton
+                        ? () {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            clickLogin();
+                          }
+                        : null,
                     style: ElevatedButton.styleFrom(
                         elevation: 5,
                         backgroundColor: const Color(0xff005C99),
                         foregroundColor: Colors.white,
                         disabledBackgroundColor: const Color(0xffc7c7c7)),
-                    child: _isLoading ?
-                    const SizedBox(height: 28,width: 28,
-                    child: CircularProgressIndicator(color: Colors.white,strokeWidth: 3.0,))
+                    child: _isLoading
+                        ? const SizedBox(
+                            height: 28,
+                            width: 28,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 3.0,
+                            ))
                         : const Text("Đăng nhập")),
               ),
               const SizedBox(
@@ -203,31 +214,39 @@ class _LoginState extends State<Login> {
                         foregroundColor: Colors.black87,
                         elevation: 5,
                       ),
-                      icon: SvgPicture.asset('assets/icon/icon_facebook.svg',color: const Color(0xff005C99),),
+                      icon: SvgPicture.asset(
+                        'assets/icon/icon_facebook.svg',
+                        color: const Color(0xff005C99),
+                      ),
                       label: const Text('Tiếp tục với Facebook'),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 6,),
+              const SizedBox(
+                height: 6,
+              ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: InkWell(
-                  onTap: (){goToPage(const SignUpPage());},
+                  onTap: () {
+                    goToPage(const SignUpPage());
+                  },
                   child: RichText(
                     text: const TextSpan(
-                      style: TextStyle(fontSize: 14),
-                      children: [
-                        TextSpan(
-                          text: 'Chưa có tài khoản? ',
-                          style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)
-                        ),
-                        TextSpan(
-                          text: 'Đăng ký',
-                          style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold)
-                        )
-                      ]
-                  ),
+                        style: TextStyle(fontSize: 14),
+                        children: [
+                          TextSpan(
+                              text: 'Chưa có tài khoản? ',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                          TextSpan(
+                              text: 'Đăng ký',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold))
+                        ]),
                   ),
                 ),
               )
@@ -247,16 +266,15 @@ class _LoginState extends State<Login> {
   void dispose() {
     super.dispose();
   }
+
   Future<void> clickLogin() async {
     FocusScopeNode currentFocus = FocusScope.of(context);
     if (!currentFocus.hasPrimaryFocus) {
       currentFocus.unfocus();
     }
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _email,
-          password: _password
-      );
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: _email, password: _password);
       setState(() {
         _isLoading = false;
       });
@@ -269,13 +287,13 @@ class _LoginState extends State<Login> {
         showToast('Tài khoản không tồn tại');
       } else if (e.code == 'wrong-password') {
         showToast('Mật khẩu không đúng!');
-      }
-      else {
+      } else {
         showToast('Email không hợp lệ !');
       }
     }
   }
-  void showToast(String error){
+
+  void showToast(String error) {
     Fluttertoast.showToast(
         msg: error,
         toastLength: Toast.LENGTH_SHORT,
@@ -283,15 +301,14 @@ class _LoginState extends State<Login> {
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
         textColor: Colors.black,
-        fontSize: 16.0
-    );
+        fontSize: 16.0);
   }
 
   void goToPage(Widget w) {
     Navigator.push(
         context,
         PageRouteBuilder(
-            pageBuilder: (_, __, ___) =>  w,
+            pageBuilder: (_, __, ___) => w,
             transitionDuration: const Duration(milliseconds: 400),
             transitionsBuilder: (_, a, __, c) => FadeTransition(
                   opacity: a,

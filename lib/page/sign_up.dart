@@ -117,6 +117,7 @@ class _SignUpState extends State<SignUpPage> {
                               });
                             },
                             decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
                                 label: const Text("Email"),
                                 labelStyle:
                                     const TextStyle(color: Colors.black54),
@@ -148,6 +149,7 @@ class _SignUpState extends State<SignUpPage> {
                               });
                             },
                             decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
                                 label: const Text("Tên của bạn"),
                                 labelStyle:
                                     const TextStyle(color: Colors.black54),
@@ -180,6 +182,7 @@ class _SignUpState extends State<SignUpPage> {
                               });
                             },
                             decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
                                 label: const Text("Mật khẩu"),
                                 labelStyle:
                                     const TextStyle(color: Colors.black54),
@@ -222,6 +225,7 @@ class _SignUpState extends State<SignUpPage> {
                               });
                             },
                             decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
                                 label: const Text("Nhập lại mật khẩu"),
                                 labelStyle:
                                     const TextStyle(color: Colors.black54),
