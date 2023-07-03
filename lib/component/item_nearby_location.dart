@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:travel/model/location.dart';
 
 class ItemNearbyLocation extends StatelessWidget {
-  const ItemNearbyLocation({super.key});
+  final Location location;
+  const ItemNearbyLocation({super.key, required this.location});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +28,7 @@ class ItemNearbyLocation extends StatelessWidget {
                       decoration: BoxDecoration(
                           image: DecorationImage(
                               image: imageProvider, fit: BoxFit.cover))),
-                  imageUrl:
-                      "https://i.pinimg.com/564x/ea/3d/d4/ea3dd47276b865c44d253c028da19a06.jpg",
+                  imageUrl: location.listImage[0],
                   placeholder: (context, url) => const Center(
                     child: SizedBox(
                         width: 28,
@@ -57,23 +58,23 @@ class ItemNearbyLocation extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Vịnh Hạ Long",
-                          style: TextStyle(
+                        Text(
+                          location.name,
+                          style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 14),
                         ),
-                        const Row(
+                        Row(
                           children: [
                             Text(
-                              "Việt Nam",
-                              style: TextStyle(
+                              location.country,
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 11),
                             ),
-                            SizedBox(width: 4,),
-                            Icon(Icons.location_on,size: 12,color: Colors.white,)
+                            const SizedBox(width: 4,),
+                            const Icon(Icons.location_on,size: 12,color: Colors.white,)
                           ],
                         ),
                         SizedBox(

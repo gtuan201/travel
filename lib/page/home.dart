@@ -1,13 +1,14 @@
-import 'dart:io';
 
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:travel/component/custom_icon_button.dart';
 import 'package:travel/component/custom_text_field.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:travel/component/item_nearby_location.dart';
 import 'package:travel/component/layout_service_button.dart';
+import 'package:travel/data/location_api.dart';
+
+import '../model/location.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,7 +19,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var user = FirebaseAuth.instance.currentUser;
-  ScrollController _controller = ScrollController();
+  List<Location> _location = [];
+  final ScrollController _controller = ScrollController();
+  // Location location = new Location("", "Maldives,", "Cộng hòa Maldives", ["https://i.pinimg.com/564x/1f/7b/62/1f7b621d6320062d76f6d1495200a754.jpg"], 3.0, [], -0.658112, 73.107988, 4000000,"des");
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +49,7 @@ class _HomePageState extends State<HomePage> {
                     visible: true,
                     child: GestureDetector(
                       onTap: () {
+                        loadUsers();
                         // Xử lý khi người dùng nhấn vào nút
                       },
                       child: Container(
@@ -156,12 +160,12 @@ class _HomePageState extends State<HomePage> {
                 height: 200,
                 child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: 5,
+                    itemCount: _location.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        margin: (index != 4)? const EdgeInsets.only(right: 10) : EdgeInsets.zero,
-                          child: const ItemNearbyLocation()
+                        margin: (index != _location.length - 1)? const EdgeInsets.only(right: 10) : EdgeInsets.zero,
+                          child: ItemNearbyLocation(location: _location[index],)
                       );
                     }
                 ),
@@ -175,6 +179,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    loadUsers();
     super.initState();
+  }
+  void loadUsers() async {
+    List<Location> locations = await Api().getLocations();
+    setState(() {
+      _location = locations;
+    });
   }
 }
