@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:travel/component/custom_icon_button.dart';
 import 'package:travel/component/custom_text_field.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:travel/component/item_nearby_location.dart';
+import 'package:travel/component/layout_service_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,12 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var user = FirebaseAuth.instance.currentUser;
-  final List<String> texts = [
-    'Text 1',
-    'Text 2',
-    'Text 3',
-    'Text 4',
-  ];
+  ScrollController _controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +28,18 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.lightBlue,
         automaticallyImplyLeading: false,
         flexibleSpace: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
           child: Column(
             children: [
-               Row(
+              Row(
                 children: [
                   const Expanded(
                     child: Text(
                       'Lavana',
-                      style: TextStyle(color: Colors.white,fontFamily: 'Belanosima-SemiBold',fontSize: 26),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Belanosima-SemiBold',
+                          fontSize: 26),
                     ),
                   ),
                   Visibility(
@@ -54,11 +53,17 @@ class _HomePageState extends State<HomePage> {
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                         ),
-                        child:  const Padding(
+                        child: const Padding(
                           padding: EdgeInsets.only(right: 8),
                           child: badges.Badge(
-                            badgeContent: Text('1',style: TextStyle(color: Colors.white),),
-                            child: Icon(Icons.notifications_none,color: Colors.white,),
+                            badgeContent: Text(
+                              '1',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            child: Icon(
+                              Icons.notifications_none,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -67,12 +72,15 @@ class _HomePageState extends State<HomePage> {
                   Visibility(
                     visible: true,
                     child: CircleAvatar(
-                      backgroundImage: FileImage(File("${user!.photoURL}")),radius: 16,
+                      backgroundImage: FileImage(File("${user!.photoURL}")),
+                      radius: 16,
                     ),
                   )
                 ],
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -93,11 +101,17 @@ class _HomePageState extends State<HomePage> {
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                         ),
-                        child:  const Padding(
+                        child: const Padding(
                           padding: EdgeInsets.only(right: 8),
                           child: badges.Badge(
-                            badgeContent: Text('1',style: TextStyle(color: Colors.white),),
-                            child: Icon(Icons.notifications_none,color: Colors.white,),
+                            badgeContent: Text(
+                              '1',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            child: Icon(
+                              Icons.notifications_none,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -106,7 +120,8 @@ class _HomePageState extends State<HomePage> {
                   Visibility(
                     visible: false,
                     child: CircleAvatar(
-                      backgroundImage: FileImage(File("${user!.photoURL}")),radius: 16,
+                      backgroundImage: FileImage(File("${user!.photoURL}")),
+                      radius: 16,
                     ),
                   )
                 ],
@@ -115,28 +130,42 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[];
-        },
-        body: Padding(
+      body: SingleChildScrollView(
+        controller: _controller,
+        child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Flexible(
-                child: FlutterMap(
-                    options: MapOptions(
-                      center: LatLng(20.9084384, 107.0682782 ),
-                      zoom: 9.2,
-                    ),
-                  children: [
-                    TileLayer(
-                      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                      userAgentPackageName: 'com.example.app',
-                    ),
-                  ],
+              const ServiceButtons(),
+              Divider(
+                height: 0.5,
+                color: Colors.grey.shade300,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                "Các địa điểm du lịch gần bạn",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 200,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 5,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: (index != 4)? const EdgeInsets.only(right: 10) : EdgeInsets.zero,
+                          child: const ItemNearbyLocation()
+                      );
+                    }
                 ),
-              )
+              ),
             ],
           ),
         ),

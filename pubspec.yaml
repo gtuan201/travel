@@ -49,6 +49,7 @@ dependencies:
   badges: ^3.1.1
   flutter_map: ^4.0.0
   latlong2: ^0.8.2
+  flutter_rating_bar: ^4.0.1
 
 
 dev_dependencies:
@@ -86,6 +87,14 @@ flutter:
     - assets/icon/facebook_icon.svg
     - assets/icon/icon_facebook.svg
     - assets/images/image_avatar.jpg
+    - assets/icon/airplane.svg
+    - assets/icon/car.svg
+    - assets/icon/house.svg
+    - assets/icon/hotel.svg
+    - assets/icon/train.svg
+    - assets/icon/ship.svg
+    - assets/icon/taxi.svg
+    - assets/icon/restaurant.svg
 #    - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
