@@ -56,8 +56,6 @@ class Location {
   }
 
   Future<void> addLocation(Location location) async {
-    String id = DateTime.now().millisecondsSinceEpoch.toString();
-    location._id = id;
     final response = await http.put(
       Uri.parse('${Constants.BASE_URL}/location/${location._id}.json'),
       body: json.encode(location.toJson()),
