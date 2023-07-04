@@ -52,6 +52,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   firebase_database: ^10.2.3
   http: ^0.13.0
+  shimmer: ^2.0.0
 
 
 dev_dependencies:

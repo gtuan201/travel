@@ -82,7 +82,9 @@ class ItemNearbyLocation extends StatelessWidget {
                               itemSize: 12,
                               itemCount: 5,
                               unratedColor: Colors.white54,
-                              initialRating: 3,
+                              initialRating: location.rating,
+                              allowHalfRating: false,
+                              ignoreGestures: true,
                               itemBuilder: (context, _) => const Icon(
                                     Icons.star,
                                     color: Colors.amber,

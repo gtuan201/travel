@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:travel/component/custom_text_field.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:travel/component/item_nearby_location.dart';
@@ -73,10 +74,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  Visibility(
+                  const Visibility(
                     visible: true,
                     child: CircleAvatar(
-                      backgroundImage: FileImage(File("${user!.photoURL}")),
+                      backgroundImage: AssetImage('assets/images/image_avatar.jpg'),
                       radius: 16,
                     ),
                   )
@@ -158,17 +159,57 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(
                 height: 200,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: _location.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: (index != _location.length - 1)? const EdgeInsets.only(right: 10) : EdgeInsets.zero,
-                          child: ItemNearbyLocation(location: _location[index],)
+                child: FutureBuilder<List<Location>>(
+                  future: Api().getLocations(),
+                  builder: (BuildContext context, AsyncSnapshot<List<Location>> snapshot){
+                    if(snapshot.connectionState == ConnectionState.waiting){
+                      return ListView.builder(
+                        itemCount: 3,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (BuildContext context, int index) {
+                          return  Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            child: Shimmer(
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [Colors.white, Colors.grey.shade300, Colors.white],
+                                stops: const [0.0, 0.5, 1.0],
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Container(
+                                  width: 150,
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade300,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       );
                     }
-                ),
+                    else if(snapshot.hasError){
+                      return Text('Error: ${snapshot.error}');
+                    }
+                    else {
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                                margin: (index != snapshot.data!.length - 1)? const EdgeInsets.only(right: 10) : EdgeInsets.zero,
+                                child: ItemNearbyLocation(location: snapshot.data![index],)
+                            );
+                          }
+                      );
+                    }
+                  },
+                )
               ),
             ],
           ),
