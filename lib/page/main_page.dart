@@ -62,7 +62,10 @@ class _MyHomePageState extends State<MainPage> {
       ),
       body: SafeArea(
         bottom: false,
-        child:  pages[_selectedIndex],
+        child: IndexedStack(
+          index: _selectedIndex,
+          children: pages,
+        ),
       )
     );
   }
