@@ -165,6 +165,11 @@ class _OnboardingState extends State<OnboardingScreen> {
     _controller = PageController(initialPage: 0);
     super.initState();
   }
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
 
   AnimatedContainer buildDot(int index, BuildContext context) {
     return AnimatedContainer(

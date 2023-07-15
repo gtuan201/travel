@@ -281,22 +281,20 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       const SizedBox(height: 10,),
-                    Container(
-                      child: FutureBuilder<List<Hotel>>(
-                        future: Api().getHotels(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<Hotel>> snapshot) {
-                            if(snapshot.connectionState == ConnectionState.waiting){
-                              return const ItemHotelLoading();
-                            }
-                            else if(snapshot.hasError) {
-                              return Text(snapshot.error.toString());
-                            }
-                            else {
-                              return ItemHotel(items: snapshot.data!);
-                            }
-                          }),
-                    )
+                    FutureBuilder<List<Hotel>>(
+                      future: Api().getHotels(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<Hotel>> snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return const ItemHotelLoading();
+                          }
+                          else if(snapshot.hasError) {
+                            return Text(snapshot.error.toString());
+                          }
+                          else {
+                            return ItemHotel(items: snapshot.data!);
+                          }
+                        })
                   ],
                   ),
                 ),
@@ -364,11 +362,11 @@ class _HomePageState extends State<HomePage> {
     _scrollController.addListener(scrollToShow);
     // loadUsers();
     // int id = DateTime.now().millisecondsSinceEpoch;
-    // Location location = new Location("$id", "Bangkok,", "Thái Lan", ["https://i.pinimg.com/564x/e6/96/4c/e6964c3dff924dffb0f2bef45eea133c.jpg"], 5.0, [], 13.782598, 100.525696, 1000000,"des");
+    // Location location = new Location("$id", "Vũng Tàu", "Việt Nam", ["https://i.pinimg.com/564x/11/86/ca/1186caad8d3bc7050d3b9e8ed106238f.jpg"], 4.0, [], 107.107597, 2.299286, 1000000,"des");
     // location.addLocation(location);
-    // Activity activity = new Activity("${id + 10}", "Lễ Hội Té Nước", location, ["https://i.pinimg.com/564x/29/e7/d1/29e7d1983e49f493a3ecfc3250cd8e10.jpg"], [], 500000, "description", 4, 17, "term", "04/07/2023", 60, "Ngoài trời");
-    // activity.addLocation(activity);
-    // Hotel hotel = new Hotel('id', 'name', ["https://i.pinimg.com/564x/29/e7/d1/29e7d1983e49f493a3ecfc3250cd8e10.jpg"], [], [], 'lat', 'long', 4, '100', 'times', 2.0, 'description', 0);
+    // // Activity activity = new Activity("${id + 10}", "Lễ Hội Té Nước", location, ["https://i.pinimg.com/564x/29/e7/d1/29e7d1983e49f493a3ecfc3250cd8e10.jpg"], [], 500000, "description", 4, 17, "term", "04/07/2023", 60, "Ngoài trời");
+    // // activity.addLocation(activity);
+    // Hotel hotel = new Hotel('$id', 'La Mer Homestay', ["https://i.pinimg.com/564x/b0/3d/0d/b03d0da79ea27e1f975b8f12ed9fdac4.jpg"], [], [], '10.399276', '107.107597', 4, '100', 'times', 5.0, 'description', 0,location);
     // hotel.addLocation(hotel);
     super.initState();
   }

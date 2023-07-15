@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:travel/model/location.dart';
 
 import '../utils/constants.dart';
 
@@ -18,6 +19,7 @@ class Hotel {
   double? rating;
   String? description;
   int? type;
+  Location? location;
 
   Hotel(
       this.id,
@@ -32,7 +34,8 @@ class Hotel {
       this.times,
       this.rating,
       this.description,
-      this.type);
+      this.type,
+      this.location);
 
   Hotel.fromJson(Map<String, dynamic> json) {
     List<dynamic> listImages = json['listImage'] ?? [];
@@ -41,11 +44,13 @@ class Hotel {
     List<String> comments = listComment.cast<String>().toList();
     List<dynamic> listFeature = json['features'] ?? [];
     List<String> feature = listFeature.cast<String>().toList();
+    Location locationData = Location.fromJson(json['location']);
     id = json['id'];
     name = json['name'];
     listImage = images;
     features = feature;
     listComment = comments;
+    location = locationData;
     lat = json['lat'];
     long = json['long'];
     room = json['room'];
@@ -70,7 +75,8 @@ class Hotel {
       'times':times,
       'rating':rating,
       'description':description,
-      'type':type
+      'type':type,
+      'location':location!.toJson()
     };
   }
   Future<void> addLocation(Hotel hotel) async {
