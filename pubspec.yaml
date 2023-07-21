@@ -61,7 +61,12 @@ dependencies:
   animated_text_kit: ^4.2.2
   smooth_page_indicator: ^1.1.0
   animations: ^2.0.7
-
+  youtube_player_flutter: ^8.1.2
+  flutter_inappwebview: ^5.7.2+3
+  maps_toolkit: ^2.0.1
+  geolocator: ^9.0.2
+  expandable_text: 2.3.0
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -87,25 +92,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/logo.png
-    - assets/images/onb1.png
-    - assets/images/onb2.png
-    - assets/images/onb3.png
-    - assets/images/logo2.png
-    - assets/icon/email_icon.svg
-    - assets/icon/password_icon.svg
-    - assets/icon/google_icon.svg
-    - assets/icon/facebook_icon.svg
-    - assets/icon/icon_facebook.svg
-    - assets/images/image_avatar.jpg
-    - assets/icon/airplane.svg
-    - assets/icon/car.svg
-    - assets/icon/house.svg
-    - assets/icon/hotel.svg
-    - assets/icon/train.svg
-    - assets/icon/ship.svg
-    - assets/icon/taxi.svg
-    - assets/icon/restaurant.svg
+    - assets/images/
+    - assets/icon/
+    - assets/animation/
 #    - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
